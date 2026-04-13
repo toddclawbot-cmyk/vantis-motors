@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vantis Motors — Beyond Elevation</title>
+  <meta name="description" content="Vantis Motors builds electric vehicles engineered for people who refuse to choose between performance and responsibility. Meet the APEX and RIDGE.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #1a1a1a;
+      --bg-tertiary: #242424;
+      --accent: #c9a84c;
+      --accent-hover: #d4b860;
+      --accent-muted: #a68938;
+      --text-primary: #f5f5f5;
+      --text-secondary: #a0a0a0;
+      --text-subtle: #666666;
+      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-main);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection { background: var(--accent); color: var(--bg-primary); }
+
+    a { color: inherit; text-decoration: none; }
+
+    img { display: block; max-width: 100%; }
+
+    .skip-nav {
+      position: absolute;
+      top: -100%;
+      left: 0;
+      background: var(--accent);
+      color: var(--bg-primary);
+      padding: 12px 24px;
+      font-weight: 600;
+      z-index: 9999;
+      transition: top 0.2s;
+    }
+    .skip-nav:focus { top: 0; }
+
+    /* ─── NAVIGATION ─────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 72px;
+      transition: background 0.3s ease, border-color 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.scrolled {
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom-color: rgba(201, 168, 76, 0.15);
+    }
+    .nav-logo {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-cta {
+      background: var(--accent) !important;
+      color: var(--bg-primary) !important;
+      padding: 10px 24px;
+      border-radius: 4px;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: var(--accent-hover) !important; transform: scale(1.02); }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      background: none;
+      border: none;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text-primary);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--bg-primary);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .mobile-menu.open { opacity: 1; pointer-events: all; }
+    .mobile-menu a {
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--accent); }
+    .mobile-menu .mobile-cta {
+      margin-top: 20px;
+      background: var(--accent);
+      color: var(--bg-primary);
+      padding: 14px 40px;
+      border-radius: 4px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    /* ─── HERO ─────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(105deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.4) 50%, rgba(10,10,10,0.2) 100%),
+        url('images/apex-front.png') center/cover no-repeat;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 200px;
+      background: linear-gradient(to top, var(--bg-primary), transparent);
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 80px;
+      max-width: 720px;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent-muted);
+      padding: 6px 14px;
+      border-radius: 2px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.2s forwards;
+    }
+    .hero h1 {
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.35s forwards;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .hero-sub {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.5s forwards;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.65s forwards;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: var(--bg-primary);
+      padding: 14px 32px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: scale(1.02);
+      box-shadow: 0 8px 32px rgba(201, 168, 76, 0.25);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text-primary);
+      padding: 14px 32px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      border: 1px solid rgba(245,245,245,0.2);
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      cursor: pointer;
+    }
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      background: rgba(201, 168, 76, 0.05);
+      transform: scale(1.02);
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 48px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-subtle);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 1s forwards;
+    }
+    .hero-scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+
+    /* ─── SECTION BASE ─────────────────────────────────────────── */
+    .section {
+      padding: 120px 80px;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+    .section-full {
+      padding: 120px 80px;
+      max-width: none;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--accent-muted);
+    }
+    .section-title {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .section-title em { font-style: normal; color: var(--accent); }
+    .section-subtitle {
+      font-size: 20px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 560px;
+      line-height: 1.6;
+    }
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--accent-muted), transparent);
+      margin: 0 auto;
+      max-width: 1440px;
+    }
+
+    /* ─── VEHICLE SECTIONS ──────────────────────────────────────── */
+    .vehicle-section {
+      position: relative;
+    }
+    .vehicle-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      margin-bottom: 80px;
+    }
+    .vehicle-intro.reverse { direction: rtl; }
+    .vehicle-intro.reverse > * { direction: ltr; }
+    .vehicle-intro-text .section-subtitle {
+      font-size: 17px;
+      line-height: 1.75;
+      margin-top: 20px;
+    }
+    .vehicle-intro-image {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .vehicle-intro-image img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .vehicle-intro-image:hover img { transform: scale(1.02); }
+    .vehicle-intro-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      border-radius: 8px;
+      pointer-events: none;
+    }
+
+    /* Feature Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2px;
+      margin-bottom: 80px;
+      background: var(--bg-tertiary);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .feature-card {
+      background: var(--bg-secondary);
+      padding: 36px 28px;
+      transition: background 0.3s;
+    }
+    .feature-card:hover { background: var(--bg-tertiary); }
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+    .feature-card h4 {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .feature-card p {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* Specs Table */
+    .specs-wrapper { margin-bottom: 60px; }
+    .specs-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .specs-header h3 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+    .specs-header .starting-price {
+      font-family: var(--font-mono);
+      font-size: 28px;
+      font-weight: 500;
+      color: var(--accent);
+    }
+    .specs-header .starting-price span {
+      font-size: 14px;
+      color: var(--text-subtle);
+      font-family: var(--font-main);
+    }
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .specs-table tr:nth-child(odd) { background: var(--bg-secondary); }
+    .specs-table tr:nth-child(even) { background: var(--bg-tertiary); }
+    .specs-table tr:first-child { border-radius: 4px 4px 0 0; }
+    .specs-table td {
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .specs-table td:first-child {
+      font-weight: 500;
+      color: var(--text-secondary);
+      width: 40%;
+    }
+    .specs-table td:last-child {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      text-align: right;
+    }
+    .vehicle-cta {
+      text-align: center;
+      padding-top: 20px;
+    }
+
+    /* Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .gallery-item {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 16/10;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.04); }
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      border-radius: 8px;
+      pointer-events: none;
+    }
+
+    /* ─── BRAND STORY ──────────────────────────────────────────── */
+    #story {
+      background: linear-gradient(to bottom, var(--bg-primary), var(--bg-secondary));
+    }
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+    }
+    .story-text p {
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+    .story-text p:first-of-type {
+      font-size: 20px;
+      color: var(--text-primary);
+      font-weight: 400;
+    }
+    .story-values {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .value-item {
+      padding: 28px 32px;
+      background: var(--bg-tertiary);
+      border-radius: 8px;
+      border-left: 3px solid var(--accent);
+    }
+    .value-item h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+    .value-item p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* ─── TECHNOLOGY ───────────────────────────────────────────── */
+    #technology {
+      background: var(--bg-primary);
+    }
+    .tech-intro {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+    .tech-intro .section-subtitle {
+      margin: 0 auto;
+      font-size: 18px;
+    }
+    .tech-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--bg-tertiary);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 80px;
+    }
+    .tech-card {
+      background: var(--bg-secondary);
+      padding: 52px 48px;
+      transition: background 0.3s;
+    }
+    .tech-card:hover { background: var(--bg-tertiary); }
+    .tech-card-number {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+    }
+    .tech-card h3 {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+    .tech-card h4 {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--accent-muted);
+      margin-bottom: 20px;
+    }
+    .tech-card p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+    .tech-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .tech-card li {
+      font-size: 13px;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+      padding-left: 16px;
+      position: relative;
+    }
+    .tech-card li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent-muted);
+    }
+
+    /* ─── FOOTER ───────────────────────────────────────────────── */
+    .footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid rgba(201, 168, 76, 0.1);
+      padding: 80px 80px 40px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+    .footer-brand .nav-logo {
+      font-size: 28px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .footer-brand .tagline {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .footer-brand .desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-subtle);
+      line-height: 1.7;
+      max-width: 280px;
+    }
+    .footer-brand .location {
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--text-subtle);
+      font-family: var(--font-mono);
+    }
+    .footer-col h5 {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-subtle);
+      margin-bottom: 20px;
+    }
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-col ul li a {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--accent); }
+    .footer-social {
+      display: flex;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .footer-social a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(201, 168, 76, 0.05);
+    }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-bottom p {
+      font-size: 12px;
+      color: var(--text-subtle);
+    }
+    .footer-legal {
+      display: flex;
+      gap: 20px;
+    }
+    .footer-legal a {
+      font-size: 12px;
+      color: var(--text-subtle);
+      transition: color 0.2s;
+    }
+    .footer-legal a:hover { color: var(--text-secondary); }
+
+    /* ─── ANIMATIONS ───────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 1; transform: scaleY(1); }
+      50% { opacity: 0.4; transform: scaleY(0.7); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── FOCUS STATES ─────────────────────────────────────────── */
+    *:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    /* ─── RESPONSIVE ───────────────────────────────────────────── */
+    @media (max-width: 1280px) {
+      .section, .section-full { padding: 100px 48px; }
+      .footer { padding: 80px 48px 40px; }
+      .features-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 1024px) {
+      .section, .section-full { padding: 80px 32px; }
+      .nav { padding: 0 32px; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .mobile-menu { display: flex; }
+      .hero-content { padding: 0 48px; }
+      .vehicle-intro { grid-template-columns: 1fr; gap: 40px; }
+      .vehicle-intro.reverse { direction: ltr; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .story-grid { grid-template-columns: 1fr; gap: 60px; }
+      .tech-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+    @media (max-width: 768px) {
+      .section, .section-full { padding: 72px 20px; }
+      .nav { padding: 0 20px; }
+      .hero-content { padding: 0 24px; }
+      .hero h1 { font-size: 36px; }
+      .hero-sub { font-size: 16px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .footer { padding: 60px 20px 32px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 375px) {
+      .hero h1 { font-size: 28px; }
+      .section-title { font-size: 28px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main" class="skip-nav">Skip to main content</a>
+
+  <!-- NAVIGATION -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <a href="#" class="nav-logo" aria-label="Vantis Motors home">VANTIS</a>
+    <ul class="nav-links">
+      <li><a href="#apex">APEX</a></li>
+      <li><a href="#ridge">RIDGE</a></li>
+      <li><a href="#story">Brand Story</a></li>
+      <li><a href="#technology">Technology</a></li>
+      <li><a href="#" class="nav-cta">Order</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" role="dialog" aria-label="Mobile navigation">
+    <a href="#apex">APEX</a>
+    <a href="#ridge">RIDGE</a>
+    <a href="#story">Brand Story</a>
+    <a href="#technology">Technology</a>
+    <a href="#" class="mobile-cta">Order</a>
+  </div>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <section class="hero" aria-label="Vantis Motors hero">
+      <div class="hero-bg" role="img" aria-label="Vantis APEX on a mountain pass at golden hour"></div>
+      <div class="hero-content">
+        <span class="hero-badge">Vantis Motors — Denver, Colorado</span>
+        <h1>Beyond <em>Elevation</em></h1>
+        <p class="hero-sub">Electric vehicles engineered for people who refuse to choose between performance and responsibility. Rugged enough for a winter pass. Refined enough for a boardroom.</p>
+        <div class="hero-actions">
+          <a href="#apex" class="btn-primary">Explore APEX →</a>
+          <a href="#ridge" class="btn-secondary">Explore RIDGE →</a>
+        </div>
+      </div>
+      <div class="hero-scroll" aria-hidden="true">
+        <div class="hero-scroll-line"></div>
+        <span>Scroll</span>
+      </div>
+    </section>
+
+    <!-- APEX SECTION -->
+    <section id="apex" class="vehicle-section" aria-labelledby="apex-title">
+      <div class="section">
+        <div class="vehicle-intro reveal">
+          <div class="vehicle-intro-text">
+            <span class="section-label">Model</span>
+            <h2 class="section-title" id="apex-title">APEX</h2>
+            <p class="section-subtitle">Three rows. Zero limits.</p>
+            <p class="section-subtitle">The world's first true no-compromise three-row electric SUV. Built in Denver for people who measure their weekends in elevation gain. The APEX doesn't ask you to choose between your family, your adventures, and your values. It just delivers — every time.</p>
+          </div>
+          <div class="vehicle-intro-image">
+            <img src="images/apex-front.png" alt="Vantis APEX — front three-quarter view on mountain road" loading="lazy">
+          </div>
+        </div>
+
+        <!-- Features -->
+        <div class="features-grid reveal">
+          <div class="feature-card">
+            <svg class="feature-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M20 4 L36 30 L4 30 Z"/>
+              <path d="M10 30 L20 12 L30 30" stroke-width="1"/>
+              <circle cx="20" cy="8" r="2"/>
+            </svg>
+            <h4>Panoramic Mountain-View Glass Roof</h4>
+            <p>A full-length glass roof that turns every drive into a private light show. See the stars. See the summit. See everything.</p>
+          </div>
+          <div class="feature-card">
+            <svg class="feature-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <rect x="4" y="12" width="32" height="20" rx="2"/>
+              <path d="M12 12 V8 M28 12 V8"/>
+              <path d="M8 22 h24"/>
+              <path d="M14 28 h4 M22 28 h4"/>
+            </svg>
+            <h4>Command Center Interior</h4>
+            <p>Reclaimed wood meets precision engineering. Sustainably sourced materials meet a cabin designed for people who notice.</p>
+          </div>
+          <div class="feature-card">
+            <svg class="feature-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <circle cx="12" cy="28" r="6"/>
+              <circle cx="28" cy="28" r="6"/>
+              <path d="M6 28 H10 M30 28 H34"/>
+              <path d="M12 22 V16 Q20 8 28 16 V22"/>
+            </svg>
+            <h4>Air Suspension with Adaptive Terrain Response</h4>
+            <p>The APEX reads the road. Snow, mud, gravel, or highway — it adjusts in milliseconds. Your family deserves a smooth ride. Always.</p>
+          </div>
+          <div class="feature-card">
+            <svg class="feature-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <circle cx="20" cy="20" r="14"/>
+              <circle cx="20" cy="20" r="6"/>
+              <path d="M20 6 V10 M20 30 V34 M6 20 H10 M30 20 H34"/>
+              <path d="M10 10 L13 13 M27 27 L30 30 M10 30 L13 27 M27 13 L30 10"/>
+            </svg>
+            <h4>18-Speaker Spatial Audio</h4>
+            <p>Engineered for acoustic purity. A 3D spatial audio system developed with concert-hall acousticians. Sound meets the moment.</p>
+          </div>
+          <div class="feature-card">
+            <svg class="feature-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M20 6 L34 14 V26 L20 34 L6 26 V14 Z"/>
+              <circle cx="20" cy="20" r="4"/>
+              <path d="M20 16 V12"/>
+            </svg>
+            <h4>Vantis Pilot Autonomous Driving Suite</h4>
+            <p>Highway hands-free driving. Automated parking. Intersection assist. The APEX can handle more, so you can focus on what matters.</p>
+          </div>
+        </div>
+
+        <!-- Specs -->
+        <div class="specs-wrapper reveal">
+          <div class="specs-header">
+            <h3>Full Specifications</h3>
+            <div class="starting-price">$94,500 <span>starting</span></div>
+          </div>
+          <table class="specs-table" aria-label="APEX specifications">
+            <tbody>
+              <tr><td>EPA Est. Range</td><td>420 miles</td></tr>
+              <tr><td>Drivetrain</td><td>Dual Motor AWD</td></tr>
+              <tr><td>Horsepower</td><td>510 hp</td></tr>
+              <tr><td>0–60 mph</td><td>4.1 seconds</td></tr>
+              <tr><td>Towing Capacity</td><td>7,500 lbs</td></tr>
+              <tr><td>Seating</td><td>7 adults</td></tr>
+              <tr><td>Ground Clearance</td><td>9.2"</td></tr>
+              <tr><td>Fast Charge (20–80%)</td><td>20 min @ 350kW</td></tr>
+              <tr><td>Dimensions (L×W×H)</td><td>200" × 79" × 68"</td></tr>
+              <tr><td>Wheelbase</td><td>121"</td></tr>
+              <tr><td>Cargo Volume (max)</td><td>92 cu ft</td></tr>
+              <tr><td>Battery Warranty</td><td>8 yr / 120,000 mi</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Gallery -->
+        <div class="gallery-grid reveal">
+          <div class="gallery-item">
+            <img src="images/apex-front.png" alt="Vantis APEX front view" loading="lazy">
+          </div>
+          <div class="gallery-item">
+            <img src="images/apex-rear.png" alt="Vantis APEX rear view" loading="lazy">
+          </div>
+        </div>
+
+        <div class="vehicle-cta reveal" style="margin-top: 60px;">
+          <a href="#" class="btn-primary">Reserve Your APEX →</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- RIDGE SECTION -->
+    <section id="ridge" class="vehicle-section" aria-labelledby="ridge-title">
+      <div class="section">
+        <div class="vehicle-intro reverse reveal">
+          <div class="vehicle-intro-text">
+            <span class="section-label">Model</span>
+            <h2 class="section-title" id="ridge-title">RIDGE</h2>
+            <p class="section-subtitle">Built for the one in front.</p>
+            <p class="section-subtitle">The sport electric SUV for people who still remember what driving feels like. Two rows. 390 miles of range. 430 horsepower. And a 48-inch integrated bed that turns "weekend plans" into "where do we go next." The RIDGE answers to one person: the driver.</p>
+          </div>
+          <div class="vehicle-intro-image">
+            <img src="images/ridge-front.png" alt="Vantis RIDGE — front three-quarter view on gravel switchback" loading="lazy">
+          </div>
+        </div>
+
+        <!-- Features -->
+        <div class="features-grid reveal">
+          <div class="feature-card">
+            <svg class="feature-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <circle cx="12" cy="28" r="5"/>
+              <circle cx="28" cy="28" r="5"/>
+              <path d="M7 28 H9 M31 28 H33"/>
+              <path d="M12 23 V18 Q20 10 28 18 V23"/>
+              <path d="M14 18 Q20 14 26 18" stroke-dasharray="2 2"/>
+            </svg>
+            <h4>Sport-Tuned Adaptive Air Suspension</h4>
+            <p>Lower on the highway for efficiency. Raised for snow, gravel, and everything between. The RIDGE adapts to your ambition, not the other way around.</p>
+          </div>
+          <div class="feature-card">
+            <svg class="feature-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M4 20 Q10 12 20 16 Q30 20 36 12"/>
+              <path d="M4 26 Q10 18 20 22 Q30 26 36 18"/>
+              <path d="M4 32 Q10 24 20 28 Q30 32 36 24"/>
+            </svg>
+            <h4>Carbon Fiber Interior Accents</h4>
+            <p>Light. Strong. Unmistakable. Every carbon fiber detail reminds you the RIDGE was built for drivers — not passengers.</p>
+          </div>
+          <div class="feature-card">
+            <svg class="feature-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <circle cx="20" cy="20" r="14"/>
+              <circle cx="20" cy="20" r="8"/>
+              <circle cx="20" cy="20" r="3"/>
+              <path d="M20 6 V10 M20 30 V34 M6 20 H10 M30 20 H34"/>
+            </svg>
+            <h4>Performance Brake Package — Standard</h4>
+            <p>Brembo-caliber brakes come standard. Because stopping fast is just as important as going fast. Safety isn't an optional package.</p>
+          </div>
+          <div class="feature-card">
+            <svg class="feature-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M4 30 L20 10 L36 30"/>
+              <path d="M8 30 H32"/>
+              <path d="M16 20 h8" stroke-width="2"/>
+              <path d="M18 24 h4" stroke-width="2"/>
+            </svg>
+            <h4>Active Rear Spoiler</h4>
+            <p>Deploys at highway speed for maximum downforce. Retracts at low speed for a clean silhouette. Form meets function at 70 mph.</p>
+          </div>
+          <div class="feature-card">
+            <svg class="feature-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M20 8 L20 32"/>
+              <path d="M12 16 L20 8 L28 16"/>
+              <path d="M8 28 L32 28"/>
+              <circle cx="20" cy="24" r="3"/>
+            </svg>
+            <h4>Track Mode</h4>
+            <p>One button. Full system response. Traction management unlocked. The RIDGE is the first electric SUV that lets you play without apology.</p>
+          </div>
+        </div>
+
+        <!-- Specs -->
+        <div class="specs-wrapper reveal">
+          <div class="specs-header">
+            <h3>Full Specifications</h3>
+            <div class="starting-price">$74,900 <span>starting</span></div>
+          </div>
+          <table class="specs-table" aria-label="RIDGE specifications">
+            <tbody>
+              <tr><td>EPA Est. Range</td><td>390 miles</td></tr>
+              <tr><td>Drivetrain</td><td>Dual Motor AWD</td></tr>
+              <tr><td>Horsepower</td><td>430 hp</td></tr>
+              <tr><td>0–60 mph</td><td>3.8 seconds</td></tr>
+              <tr><td>Towing Capacity</td><td>5,200 lbs</td></tr>
+              <tr><td>Seating</td><td>5 adults</td></tr>
+              <tr><td>Ground Clearance</td><td>8.7"</td></tr>
+              <tr><td>Integrated Bed Length</td><td>48"</td></tr>
+              <tr><td>Fast Charge (20–80%)</td><td>18 min @ 350kW</td></tr>
+              <tr><td>Dimensions (L×W×H)</td><td>188" × 77" × 65"</td></tr>
+              <tr><td>Wheelbase</td><td>116"</td></tr>
+              <tr><td>Cargo Volume (max)</td><td>68 cu ft</td></tr>
+              <tr><td>Battery Warranty</td><td>8 yr / 120,000 mi</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Gallery -->
+        <div class="gallery-grid reveal">
+          <div class="gallery-item">
+            <img src="images/ridge-front.png" alt="Vantis RIDGE front view" loading="lazy">
+          </div>
+          <div class="gallery-item">
+            <img src="images/ridge-rear.png" alt="Vantis RIDGE rear view" loading="lazy">
+          </div>
+        </div>
+
+        <div class="vehicle-cta reveal" style="margin-top: 60px;">
+          <a href="#" class="btn-primary">Reserve Your RIDGE →</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- BRAND STORY -->
+    <section id="story" aria-labelledby="story-title">
+      <div class="section">
+        <div class="story-grid">
+          <div class="story-text reveal">
+            <span class="section-label">Our Story</span>
+            <h2 class="section-title" id="story-title">The Vantis Story</h2>
+            <p>Vantis was born on a ski lift.</p>
+            <p>Not a metaphorical one — an actual, freezing-cold, slow-moving ski lift above Vail, Colorado. Our founder, a lifelong Coloradan and recovering mechanical engineer, was watching the mountains he loved disappear into smog from diesel busses idling in traffic below. The mountains that were supposed to clear his head were being choked by the very vehicles carrying people to enjoy them.</p>
+            <p>He didn't want an electric car that happened to be good for the environment. He wanted an electric car that happened to be the best vehicle on the road — in the snow, on the highway, in a parking lot, on a gravel road no GPS has ever heard of. A vehicle that earned its place next to the mountains.</p>
+            <p>That's what we built. That's what Vantis is.</p>
+          </div>
+          <div class="story-values reveal">
+            <div class="value-item">
+              <h4>No Compromises</h4>
+              <p>Not in materials. Not in engineering. Not in the driving experience. We don't ship anything we'd be embarrassed to park at a trailhead — or a Fortune 500 headquarters.</p>
+            </div>
+            <div class="value-item">
+              <h4>Built Where It Matters</h4>
+              <p>Designed in Denver. Every vehicle tested on Loveland Pass before it ever reaches a customer. If it doesn't work here, it doesn't work.</p>
+            </div>
+            <div class="value-item">
+              <h4>Transparent by Default</h4>
+              <p>Range figures we can defend. Performance numbers we can prove. No marketing asterisks. No "up to" disclaimers buried in footnotes.</p>
+            </div>
+            <div class="value-item">
+              <h4>Responsible by Design</h4>
+              <p>Zero emissions isn't a feature — it's the baseline. But sustainability isn't just about the drivetrain. It's in the reclaimed wood, the recycled materials, the packaging, the company we keep.</p>
+            </div>
+            <div class="value-item">
+              <h4>Built for the Driver</h4>
+              <p>Not the algorithm. Not the segment. Not the safety regulator. The person behind the wheel. That person deserves something exceptional.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- TECHNOLOGY -->
+    <section id="technology" aria-labelledby="tech-title">
+      <div class="section">
+        <div class="tech-intro reveal">
+          <span class="section-label" style="justify-content: center;">Technology</span>
+          <h2 class="section-title" id="tech-title">The Technology That Powers<br><em>Beyond Elevation</em></h2>
+          <p class="section-subtitle">We didn't build an electric vehicle. We rebuilt what an electric vehicle can be. Vantis technology starts with a clean sheet — not a legacy platform retrofitted for batteries — and ends with a vehicle that sets new benchmarks for the industry.</p>
+        </div>
+
+        <div class="tech-grid">
+          <div class="tech-card reveal">
+            <div class="tech-card-number">01 — Platform</div>
+            <h3>The Vantis E-Platform</h3>
+            <h4>Built from scratch. Built to last.</h4>
+            <p>The Vantis Electric Platform is a purpose-built architecture — not a converted gas platform with batteries stuffed underneath. A low center of gravity. Structural battery integration. Optimized for both performance and range from day one.</p>
+            <ul>
+              <li>Structural battery pack integrated into chassis</li>
+              <li>Liquid-cooled thermal management: -40°F to 130°F</li>
+              <li>OTA updates for powertrain, suspension, autonomy</li>
+              <li>V2-grid capability — power your home from your vehicle</li>
+            </ul>
+          </div>
+          <div class="tech-card reveal">
+            <div class="tech-card-number">02 — Battery</div>
+            <h3>Battery Technology</h3>
+            <h4>More miles. Less waiting.</h4>
+            <p>Next-generation lithium-iron-phosphate (LFP) chemistry with our proprietary energy density optimization. More range per dollar, faster charging, and a battery that holds 90%+ capacity at 200,000 miles.</p>
+            <ul>
+              <li>420-mile range (APEX) / 390-mile range (RIDGE)</li>
+              <li>350kW DC fast charging: 20 min to 80% (APEX)</li>
+              <li>11kW AC home charging — full charge overnight</li>
+              <li>Automatic battery preconditioning for fast charging</li>
+            </ul>
+          </div>
+          <div class="tech-card reveal">
+            <div class="tech-card-number">03 — Autonomy</div>
+            <h3>Vantis Pilot</h3>
+            <h4>Your co-pilot. Not your replacement.</h4>
+            <p>Vantis Pilot is our advanced driver assistance suite — designed to make long drives easier and city driving safer, without removing you from the equation. We believe the driver is the most important system in the vehicle.</p>
+            <ul>
+              <li>Hands-free highway driving on mapped highways</li>
+              <li>Automated parking: parallel, perpendicular, valet</li>
+              <li>Intersection assist for complex urban environments</li>
+              <li>Night vision assist with thermal imaging</li>
+              <li>Standard on every Vantis vehicle</li>
+            </ul>
+          </div>
+          <div class="tech-card reveal">
+            <div class="tech-card-number">04 — Charging</div>
+            <h3>Vantis Charging Network</h3>
+            <h4>Go further. Stop less.</h4>
+            <p>Vantis owners get privileged access to the Vantis Charging Network — over 85,000 fast-charge plugs nationwide, including exclusive Vantis Ultra stations at mountain resort towns and highway corridors.</p>
+            <ul>
+              <li>85,000+ DC fast charge plugs via NACS alliance</li>
+              <li>Vantis Ultra stations at 200+ mountain & rural locations</li>
+              <li>Plug & Charge — just plug in, billing is automatic</li>
+              <li>Integrated trip planner with real-time optimization</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tech-grid" style="grid-template-columns: 1fr;">
+          <div class="tech-card reveal" style="padding: 52px 64px;">
+            <div class="tech-card-number">05 — Performance</div>
+            <h3>Performance Without Apology</h3>
+            <h4>Electric power. Earned feel.</h4>
+            <p>We build sport-tuned vehicles. Not sporty-looking vehicles. Every Vantis model undergoes genuine performance tuning — on track, on mountain passes, on the roughest roads we can find.</p>
+            <ul style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 32px; margin-top: 8px;">
+              <li>Dual motor AWD on every model — all-wheel drive, all the time</li>
+              <li>Sport-tuned adaptive air suspension</li>
+              <li>Track Mode (RIDGE) — full system response unlocked</li>
+              <li>Brembo-performance brakes standard on RIDGE</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" aria-label="Site footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo" aria-label="Vantis Motors home">VANTIS</a>
+        <p class="tagline">Beyond Elevation</p>
+        <p class="desc">Electric vehicles for people who've stopped choosing between what they need and what they want.</p>
+        <p class="location">Denver, Colorado</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Vantis on Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Vantis on X">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Vantis on YouTube">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+              <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" stroke="none" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Vantis on LinkedIn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Vehicles</h5>
+        <ul>
+          <li><a href="#apex">APEX</a></li>
+          <li><a href="#ridge">RIDGE</a></li>
+          <li><a href="#">Compare Models</a></li>
+          <li><a href="#">Build &amp; Order</a></li>
+        </ul>
+        <h5 style="margin-top: 28px;">Company</h5>
+        <ul>
+          <li><a href="#story">Brand Story</a></li>
+          <li><a href="#technology">Technology</a></li>
+          <li><a href="#">Investor Relations</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Support</h5>
+        <ul>
+          <li><a href="#">Owner Support</a></li>
+          <li><a href="#">Charging</a></li>
+          <li><a href="#">Service</a></li>
+          <li><a href="#">Warranty</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Vantis Motors. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Preferences</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── NAV SCROLL ──────────────────────────────────────────────
+    const nav = document.querySelector('.nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // ─── HAMBURGER ────────────────────────────────────────────────
+    const hamburger = document.querySelector('.nav-hamburger');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // ─── SCROLL REVEAL ────────────────────────────────────────────
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => revealObserver.observe(el));
+
+    // ─── SMOOTH ANCHOR ────────────────────────────────────────────
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
